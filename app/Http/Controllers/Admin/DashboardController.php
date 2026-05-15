@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Journal;
 use App\Models\User;
 
@@ -18,6 +19,11 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('admin.dashboard', compact('totalStudents', 'totalTeachers', 'recentActivities'));
+        $topCompanies = Company::withCount('students')
+            ->orderByDesc('students_count')
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact('totalStudents', 'totalTeachers', 'recentActivities', 'topCompanies'));
     }
 }

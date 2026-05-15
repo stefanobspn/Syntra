@@ -93,10 +93,7 @@
             </button>
           </form>
 
-          <div class="mt-6 text-center space-y-2 flex flex-col">
-            <span class="text-sm text-muted-foreground">
-              Belum punya akun? <a href="{{ route('register') }}" class="text-blue-600 hover:underline font-medium">Daftar di sini</a>
-            </span>
+          <div class="mt-6 text-center">
             <a href="{{ url('/') }}" class="text-sm text-muted-foreground hover:text-foreground">
               Kembali ke Beranda
             </a>

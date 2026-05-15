@@ -14,6 +14,6 @@ class Company extends Model
      */
     public function students(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class)->where('role', 'student');
     }
 }

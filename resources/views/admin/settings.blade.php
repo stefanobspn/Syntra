@@ -57,7 +57,6 @@
             <div class="space-y-2">
                 <label class="text-sm font-medium text-foreground">Email Administrator</label>
                 <input type="email" value="admin@syntra.sch.id" class="w-full border border-border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-muted/50" readonly>
-                <p class="text-xs text-muted-foreground">Hubungi super-admin untuk mengubah email utama ini.</p>
             </div>
 
             <div class="space-y-2">
