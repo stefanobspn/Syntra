@@ -12,6 +12,10 @@ use App\Http\Controllers\Student\JournalController;
 use App\Http\Controllers\Student\NotificationController;
 use App\Http\Controllers\Student\ProfileController;
 use App\Http\Controllers\Student\TaskController;
+use App\Http\Controllers\Teacher\JournalReviewController;
+use App\Http\Controllers\Teacher\StudentController;
+use App\Http\Controllers\Teacher\TaskAssignmentController;
+use App\Http\Middleware\CheckTeacherRole;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -39,29 +43,26 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/student/profile', [ProfileController::class, 'index'])->name('student.profile');
 });
 
-Route::get('/teacher/dashboard', function () {
-    return view('teacher.dashboard');
-})->name('teacher.dashboard');
+Route::middleware(['auth', CheckTeacherRole::class])->prefix('teacher')->name('teacher.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/teacher/students', function () {
-    return view('teacher.students');
-})->name('teacher.students');
+    Route::get('/students', [StudentController::class, 'index'])->name('students');
+    Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show');
 
-Route::get('/teacher/reviews', function () {
-    return view('teacher.reviews');
-})->name('teacher.reviews');
+    Route::get('/reviews', [JournalReviewController::class, 'index'])->name('reviews');
+    Route::post('/reviews/{journal}/approve', [JournalReviewController::class, 'approve'])->name('reviews.approve');
+    Route::post('/reviews/{journal}/reject', [JournalReviewController::class, 'reject'])->name('reviews.reject');
 
-Route::get('/teacher/assessments', function () {
-    return view('teacher.assessments');
-})->name('teacher.assessments');
+    Route::get('/assessments', [TaskAssignmentController::class, 'index'])->name('assessments');
+    Route::post('/assessments', [TaskAssignmentController::class, 'store'])->name('assessments.store');
 
-Route::get('/teacher/notifications', function () {
-    return view('teacher.notifications');
-})->name('teacher.notifications');
+    Route::get('/notifications', [\App\Http\Controllers\Teacher\NotificationController::class, 'index'])->name('notifications');
+    Route::post('/notifications/mark-read', [\App\Http\Controllers\Teacher\NotificationController::class, 'markAllAsRead'])->name('notifications.mark_read');
 
-Route::get('/teacher/profile', function () {
-    return view('teacher.profile');
-})->name('teacher.profile');
+    Route::get('/profile', function () {
+        return view('teacher.profile');
+    })->name('profile');
+});
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
