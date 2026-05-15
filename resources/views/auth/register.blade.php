@@ -37,8 +37,7 @@
             <p class="text-muted-foreground">Daftar untuk mulai menggunakan Syntra</p>
           </div>
 
-          <!-- Note: Form action is # for now as we only implement UI -->
-          <form action="#" method="POST" class="space-y-5" x-data="{ role: 'student' }">
+          <form action="{{ route('register.post') }}" method="POST" class="space-y-5" x-data="{ role: '{{ old('role', 'student') }}' }">
             @csrf
             
             <!-- Hidden input for role to be submitted -->
@@ -73,6 +72,12 @@
                   Admin
                 </button>
               </div>
+              @error('role')
+                <div class="flex items-center gap-1.5 mt-2 text-red-500 text-sm bg-red-50 p-2.5 rounded-lg border border-red-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                    <span class="font-medium">{{ $message }}</span>
+                </div>
+              @enderror
             </div>
 
             <!-- Nama Lengkap -->
@@ -84,10 +89,17 @@
                 id="name"
                 name="name"
                 type="text"
+                value="{{ old('name') }}"
                 placeholder="Nama Lengkap Anda"
                 required
-                class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full px-4 py-3 rounded-lg border @error('name') border-red-500 @else border-border @enderror bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              @error('name')
+                <div class="flex items-center gap-1.5 mt-2 text-red-500 text-sm bg-red-50 p-2.5 rounded-lg border border-red-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                    <span class="font-medium">{{ $message }}</span>
+                </div>
+              @enderror
             </div>
 
             <!-- Email -->
@@ -99,10 +111,17 @@
                 id="email"
                 name="email"
                 type="email"
+                value="{{ old('email') }}"
                 placeholder="nama@email.com"
                 required
-                class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full px-4 py-3 rounded-lg border @error('email') border-red-500 @else border-border @enderror bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              @error('email')
+                <div class="flex items-center gap-1.5 mt-2 text-red-500 text-sm bg-red-50 p-2.5 rounded-lg border border-red-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                    <span class="font-medium">{{ $message }}</span>
+                </div>
+              @enderror
             </div>
 
             <!-- Password -->
@@ -116,8 +135,14 @@
                 type="password"
                 placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                 required
-                class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full px-4 py-3 rounded-lg border @error('password') border-red-500 @else border-border @enderror bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              @error('password')
+                <div class="flex items-center gap-1.5 mt-2 text-red-500 text-sm bg-red-50 p-2.5 rounded-lg border border-red-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                    <span class="font-medium">{{ $message }}</span>
+                </div>
+              @enderror
             </div>
 
             <!-- Password Confirmation -->
