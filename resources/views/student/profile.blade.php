@@ -7,6 +7,14 @@
         <p class="text-muted-foreground">Kelola informasi pribadi dan data diri Anda.</p>
     </div>
 
+    <div class="mb-6 p-4 bg-blue-50 text-blue-700 border border-blue-200 rounded-xl flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <div>
+            <h4 class="font-semibold mb-1">Pemberitahuan</h4>
+            <p class="text-sm">Jika Anda ingin mengubah data, silakan <span class="font-bold">hubungi Administrator sekolah</span>.</p>
+        </div>
+    </div>
+
     <div class="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
         <!-- Profile Header -->
         <div class="bg-gradient-to-r from-blue-600 to-indigo-600 h-32"></div>
@@ -14,16 +22,13 @@
             <div class="relative flex justify-between items-end -mt-12 mb-6">
                 <div class="w-24 h-24 bg-white rounded-full p-1 border-4 border-white shadow-sm flex items-center justify-center">
                     <div class="w-full h-full bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl font-bold">
-                        A
+                        {{ strtoupper(substr($user->name, 0, 1)) }}
                     </div>
                 </div>
-                <button class="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium hover:bg-muted transition-colors shadow-sm">
-                    Edit Profil
-                </button>
             </div>
 
             <div>
-                <h3 class="text-2xl font-bold text-foreground">Ahmad Fauzi</h3>
+                <h3 class="text-2xl font-bold text-foreground">{{ $user->name }}</h3>
                 <p class="text-muted-foreground">Siswa SMK Negeri 1 Jakarta</p>
             </div>
 
@@ -39,12 +44,12 @@
                     
                     <div>
                         <label class="text-sm text-muted-foreground block mb-1">Nama Lengkap</label>
-                        <p class="font-medium text-foreground">Ahmad Fauzi</p>
+                        <p class="font-medium text-foreground">{{ $user->name }}</p>
                     </div>
                     
                     <div>
                         <label class="text-sm text-muted-foreground block mb-1">Email</label>
-                        <p class="font-medium text-foreground">ahmad.fauzi@example.com</p>
+                        <p class="font-medium text-foreground">{{ $user->email }}</p>
                     </div>
                     
                     <div>

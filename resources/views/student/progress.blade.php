@@ -41,7 +41,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <span class="text-foreground font-medium">Alpa</span>
+                        <span class="text-foreground font-medium">Alpha</span>
                     </div>
                     <span class="font-bold text-foreground">0 Hari</span>
                 </div>

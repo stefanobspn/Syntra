@@ -7,6 +7,11 @@ Route::get('/', function () {
 })->name('home');
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\JournalController;
+use App\Http\Controllers\Student\NotificationController;
+use App\Http\Controllers\Student\ProfileController;
+use App\Http\Controllers\Student\TaskController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -16,29 +21,23 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.po
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/student/dashboard', function () {
-    return view('student.dashboard');
-})->name('student.dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/student/dashboard', [DashboardController::class, 'index'])->name('student.dashboard');
 
-Route::get('/student/journals', function () {
-    return view('student.journals');
-})->name('student.journals');
+    Route::get('/student/journals', [JournalController::class, 'index'])->name('student.journals');
+    Route::post('/student/journals', [JournalController::class, 'store'])->name('student.journals.store');
 
-Route::get('/student/tasks', function () {
-    return view('student.tasks');
-})->name('student.tasks');
+    Route::get('/student/tasks', [TaskController::class, 'index'])->name('student.tasks');
 
-Route::get('/student/progress', function () {
-    return view('student.progress');
-})->name('student.progress');
+    Route::get('/student/progress', function () {
+        return view('student.progress');
+    })->name('student.progress');
 
-Route::get('/student/notifications', function () {
-    return view('student.notifications');
-})->name('student.notifications');
+    Route::get('/student/notifications', [NotificationController::class, 'index'])->name('student.notifications');
+    Route::post('/student/notifications/mark-read', [NotificationController::class, 'markAllAsRead'])->name('student.notifications.mark_read');
 
-Route::get('/student/profile', function () {
-    return view('student.profile');
-})->name('student.profile');
+    Route::get('/student/profile', [ProfileController::class, 'index'])->name('student.profile');
+});
 
 Route::get('/teacher/dashboard', function () {
     return view('teacher.dashboard');
@@ -87,4 +86,3 @@ Route::get('/admin/reports', function () {
 Route::get('/admin/settings', function () {
     return view('admin.settings');
 })->name('admin.settings');
-
