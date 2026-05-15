@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -13,7 +14,7 @@ class DashboardController extends Controller
 
         // Calculate Hari PKL based on the first journal entry, or default to 0
         $firstJournal = $user->journals()->orderBy('date', 'asc')->first();
-        $hariPkl = $firstJournal ? (int) now()->startOfDay()->diffInDays(\Carbon\Carbon::parse($firstJournal->date)->startOfDay()) + 1 : 0;
+        $hariPkl = $firstJournal ? (int) now()->startOfDay()->diffInDays(Carbon::parse($firstJournal->date)->startOfDay()) + 1 : 0;
 
         // Static target duration (180 days ~ 6 months)
         $targetHari = 180;

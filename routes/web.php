@@ -6,6 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\JournalController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Student\TaskController;
 use App\Http\Controllers\Teacher\JournalReviewController;
 use App\Http\Controllers\Teacher\StudentController;
 use App\Http\Controllers\Teacher\TaskAssignmentController;
+use App\Http\Middleware\CheckAdminRole;
 use App\Http\Middleware\CheckTeacherRole;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -56,34 +58,36 @@ Route::middleware(['auth', CheckTeacherRole::class])->prefix('teacher')->name('t
     Route::get('/assessments', [TaskAssignmentController::class, 'index'])->name('assessments');
     Route::post('/assessments', [TaskAssignmentController::class, 'store'])->name('assessments.store');
 
-    Route::get('/notifications', [\App\Http\Controllers\Teacher\NotificationController::class, 'index'])->name('notifications');
-    Route::post('/notifications/mark-read', [\App\Http\Controllers\Teacher\NotificationController::class, 'markAllAsRead'])->name('notifications.mark_read');
+    Route::get('/notifications', [App\Http\Controllers\Teacher\NotificationController::class, 'index'])->name('notifications');
+    Route::post('/notifications/mark-read', [App\Http\Controllers\Teacher\NotificationController::class, 'markAllAsRead'])->name('notifications.mark_read');
 
     Route::get('/profile', function () {
         return view('teacher.profile');
     })->name('profile');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
+Route::middleware(['auth', CheckAdminRole::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/admin/students', function () {
-    return view('admin.students');
-})->name('admin.students');
+    Route::get('/students', [App\Http\Controllers\Admin\StudentController::class, 'index'])->name('students');
+    Route::post('/students', [App\Http\Controllers\Admin\StudentController::class, 'store'])->name('students.store');
+    Route::put('/students/{user}', [App\Http\Controllers\Admin\StudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{user}', [App\Http\Controllers\Admin\StudentController::class, 'destroy'])->name('students.destroy');
 
-Route::get('/admin/teachers', function () {
-    return view('admin.teachers');
-})->name('admin.teachers');
+    Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers');
+    Route::post('/teachers', [TeacherController::class, 'store'])->name('teachers.store');
+    Route::put('/teachers/{user}', [TeacherController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers/{user}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
 
-Route::get('/admin/companies', function () {
-    return view('admin.companies');
-})->name('admin.companies');
-
-Route::get('/admin/reports', function () {
-    return view('admin.reports');
-})->name('admin.reports');
-
-Route::get('/admin/settings', function () {
-    return view('admin.settings');
-})->name('admin.settings');
+    // Keep static for now
+    Route::get('/companies', [App\Http\Controllers\Admin\CompanyController::class, 'index'])->name('companies');
+    Route::post('/companies', [App\Http\Controllers\Admin\CompanyController::class, 'store'])->name('companies.store');
+    Route::put('/companies/{company}', [App\Http\Controllers\Admin\CompanyController::class, 'update'])->name('companies.update');
+    Route::delete('/companies/{company}', [App\Http\Controllers\Admin\CompanyController::class, 'destroy'])->name('companies.destroy');
+    Route::get('/reports', function () {
+        return view('admin.reports');
+    })->name('reports');
+    Route::get('/settings', function () {
+        return view('admin.settings');
+    })->name('settings');
+});

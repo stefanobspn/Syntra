@@ -16,7 +16,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-foreground">245</p>
+                    <p class="text-2xl font-bold text-foreground">{{ $totalStudents }}</p>
                     <p class="text-sm text-muted-foreground">Total Siswa PKL</p>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-foreground">18</p>
+                    <p class="text-2xl font-bold text-foreground">{{ $totalTeachers }}</p>
                     <p class="text-sm text-muted-foreground">Guru Pembimbing</p>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-foreground">67</p>
+                    <p class="text-2xl font-bold text-foreground">0</p>
                     <p class="text-sm text-muted-foreground">Perusahaan Mitra</p>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-foreground">87%</p>
+                    <p class="text-2xl font-bold text-foreground">0%</p>
                     <p class="text-sm text-muted-foreground">Avg Completion</p>
                 </div>
             </div>
@@ -63,44 +63,24 @@
         <!-- Recent Activity -->
         <div class="bg-white rounded-2xl p-6 border border-border shadow-sm">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-semibold text-foreground">Aktivitas Terbaru</h3>
-                <button class="text-sm text-blue-600 hover:underline">Lihat Semua</button>
+                <h3 class="text-xl font-semibold text-foreground">Aktivitas Jurnal Terbaru</h3>
+                <a href="{{ route('admin.reports') }}" class="text-sm text-blue-600 hover:underline">Lihat Semua</a>
             </div>
             <div class="space-y-4">
-                
+                @forelse($recentActivities as $activity)
                 <div class="flex items-center gap-4 p-3 rounded-lg bg-muted/30">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-semibold text-sm">A</span>
+                        <span class="text-white font-semibold text-sm">{{ strtoupper(substr($activity->user->name, 0, 1)) }}</span>
                     </div>
                     <div class="flex-1">
-                        <p class="text-sm font-medium text-foreground">Ahmad Fauzi</p>
-                        <p class="text-sm text-muted-foreground">Submit jurnal harian</p>
+                        <p class="text-sm font-medium text-foreground">{{ $activity->user->name }}</p>
+                        <p class="text-sm text-muted-foreground">Submit jurnal: {{ $activity->activity }}</p>
                     </div>
-                    <span class="text-xs text-muted-foreground">5 menit lalu</span>
+                    <span class="text-xs text-muted-foreground">{{ $activity->created_at->diffForHumans() }}</span>
                 </div>
-
-                <div class="flex items-center gap-4 p-3 rounded-lg bg-muted/30">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-semibold text-sm">S</span>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-medium text-foreground">Siti Nurhaliza</p>
-                        <p class="text-sm text-muted-foreground">Jurnal disetujui pembimbing</p>
-                    </div>
-                    <span class="text-xs text-muted-foreground">12 menit lalu</span>
-                </div>
-
-                <div class="flex items-center gap-4 p-3 rounded-lg bg-muted/30">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-semibold text-sm">B</span>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-medium text-foreground">Budi Santoso</p>
-                        <p class="text-sm text-muted-foreground">Update progress PKL</p>
-                    </div>
-                    <span class="text-xs text-muted-foreground">1 jam lalu</span>
-                </div>
-
+                @empty
+                <div class="text-center py-4 text-sm text-muted-foreground">Belum ada aktivitas jurnal terbaru.</div>
+                @endforelse
             </div>
         </div>
 
