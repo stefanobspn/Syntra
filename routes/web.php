@@ -62,3 +62,27 @@ Route::get('/teacher/profile', function () {
     return view('teacher.profile');
 })->name('teacher.profile');
 
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/admin/students', function () {
+    return view('admin.students');
+})->name('admin.students');
+
+Route::get('/admin/teachers', function () {
+    return view('admin.teachers');
+})->name('admin.teachers');
+
+Route::get('/admin/companies', function () {
+    return view('admin.companies');
+})->name('admin.companies');
+
+Route::get('/admin/reports', function () {
+    return view('admin.reports');
+})->name('admin.reports');
+
+Route::get('/admin/settings', function () {
+    return view('admin.settings');
+})->name('admin.settings');
+
