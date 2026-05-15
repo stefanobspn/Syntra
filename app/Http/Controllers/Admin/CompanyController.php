@@ -21,7 +21,7 @@ class CompanyController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'industry' => ['nullable', 'string', 'max:255'],
             'quota' => ['required', 'integer', 'min:0'],
-            'rating' => ['required', 'numeric', 'min:0', 'max:5'],
+            'rating' => ['nullable', 'numeric', 'min:0', 'max:5'],
             'location' => ['nullable', 'string'],
         ]);
 

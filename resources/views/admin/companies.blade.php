@@ -163,15 +163,9 @@
                     <label class="text-sm text-foreground">Bidang Usaha</label>
                     <input type="text" name="industry" value="{{ old('industry') }}" placeholder="Contoh: Software House" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="text-sm text-foreground">Kuota Siswa</label>
-                        <input type="number" name="quota" value="{{ old('quota', 0) }}" required min="0" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-sm text-foreground">Rating (0-5)</label>
-                        <input type="number" step="0.1" name="rating" value="{{ old('rating', 0.0) }}" required min="0" max="5" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
+                <div class="space-y-2">
+                    <label class="text-sm text-foreground">Kuota Siswa</label>
+                    <input type="number" name="quota" value="{{ old('quota', 0) }}" required min="0" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="space-y-2">
                     <label class="text-sm text-foreground">Lokasi</label>

@@ -6,6 +6,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Student\DashboardController;
@@ -80,13 +82,13 @@ Route::middleware(['auth', CheckAdminRole::class])->prefix('admin')->name('admin
     Route::delete('/teachers/{user}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
 
     // Keep static for now
-    Route::get('/companies', [App\Http\Controllers\Admin\CompanyController::class, 'index'])->name('companies');
-    Route::post('/companies', [App\Http\Controllers\Admin\CompanyController::class, 'store'])->name('companies.store');
-    Route::put('/companies/{company}', [App\Http\Controllers\Admin\CompanyController::class, 'update'])->name('companies.update');
-    Route::delete('/companies/{company}', [App\Http\Controllers\Admin\CompanyController::class, 'destroy'])->name('companies.destroy');
-    Route::get('/reports', function () {
-        return view('admin.reports');
-    })->name('reports');
+    Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
+    Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
+    Route::put('/companies/{company}', [CompanyController::class, 'update'])->name('companies.update');
+    Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+    Route::get('/reports/export/journals', [ReportController::class, 'exportJournals'])->name('reports.export.journals');
+    Route::get('/reports/export/students', [ReportController::class, 'exportStudents'])->name('reports.export.students');
     Route::get('/settings', function () {
         return view('admin.settings');
     })->name('settings');

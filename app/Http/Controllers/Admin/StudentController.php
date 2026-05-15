@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class StudentController extends Controller
 
         $students = $query->paginate(10);
         $teachers = User::where('role', 'teacher')->get();
-        $companies = \App\Models\Company::all();
+        $companies = Company::all();
 
         return view('admin.students', compact('students', 'teachers', 'companies'));
     }

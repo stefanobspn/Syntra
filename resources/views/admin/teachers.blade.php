@@ -75,6 +75,15 @@
                                         <label class="text-sm text-foreground">Password Baru (Opsional)</label>
                                         <input type="password" name="password" placeholder="Biarkan kosong jika tidak ingin mengubah" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm text-foreground">Perusahaan Mitra</label>
+                                        <select name="company_id" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <option value="">-- Tidak Terkait Perusahaan --</option>
+                                            @foreach($companies as $company)
+                                                <option value="{{ $company->id }}" {{ $teacher->company_id == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="pt-4">
                                         <button type="submit" class="w-full flex justify-center items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:opacity-90 transition-opacity font-medium shadow-sm">
                                             Simpan Perubahan
@@ -155,6 +164,15 @@
                 <div class="space-y-2">
                     <label class="text-sm text-foreground">Password (Default)</label>
                     <input type="password" name="password" required class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm text-foreground">Perusahaan Mitra</label>
+                    <select name="company_id" class="w-full px-4 py-3 rounded-lg border border-border bg-input-background focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">-- Tidak Terkait Perusahaan --</option>
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="pt-4">
                     <button type="submit" class="w-full flex justify-center items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:opacity-90 transition-opacity font-medium shadow-sm">

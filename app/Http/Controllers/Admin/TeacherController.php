@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,8 +22,9 @@ class TeacherController extends Controller
         }
 
         $teachers = $query->paginate(10);
+        $companies = Company::all();
 
-        return view('admin.teachers', compact('teachers'));
+        return view('admin.teachers', compact('teachers', 'companies'));
     }
 
     public function store(Request $request)
@@ -31,6 +33,7 @@ class TeacherController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', Rules\Password::defaults()],
+            'company_id' => ['nullable', 'exists:companies,id'],
         ]);
 
         User::create([
@@ -38,6 +41,7 @@ class TeacherController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'teacher',
+            'company_id' => $request->company_id,
         ]);
 
         return back()->with('success', 'Guru berhasil ditambahkan.');
@@ -53,10 +57,12 @@ class TeacherController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class.',email,'.$user->id],
             'password' => ['nullable', Rules\Password::defaults()],
+            'company_id' => ['nullable', 'exists:companies,id'],
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->company_id = $request->company_id;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
