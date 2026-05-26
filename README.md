@@ -1,4 +1,6 @@
 # Syntra - Platform Monitoring PKL Modern
+![ss1](public/images/ss1.png)
+![ss2](public/images/ss2.png)
 
 Syntra adalah platform modern berbasis web yang dirancang untuk mempermudah manajemen, pemantauan, dan pelaporan kegiatan Praktik Kerja Lapangan (PKL) secara real-time. Aplikasi ini memfasilitasi kolaborasi yang efisien antara Siswa, Guru Pembimbing, dan Admin Sekolah.
 
