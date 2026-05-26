@@ -24,4 +24,22 @@ Syntra adalah platform modern berbasis web yang dirancang untuk mempermudah mana
 - **Pusat Laporan**: Mengekspor data rekapitulasi jurnal dan siswa ke format dokumen.
 - **Pengaturan Sistem**: Konfigurasi global platform.
 
+## Deploy Cepat dengan Docker
+
+Setup ini sudah disiapkan untuk deploy di Droplet DigitalOcean dengan SQLite, Caddy, dan HTTPS otomatis. Setelah DNS A record subdomain diarahkan ke IP Droplet, jalankan:
+
+```bash
+docker compose up -d --build
+```
+
+Domain deploy sekarang sudah diset ke `syntra.stefanonirwana.dev`.
+
+Kalau `APP_KEY` kosong, container akan membuat dan menyimpannya otomatis di volume `storage`. Seeder juga sudah disiapkan untuk akun demo:
+
+- `admin@syntra.test` / `password`
+- `teacher@syntra.test` / `password`
+- `student@syntra.test` / `password`
+
+Database SQLite, session, dan cache disimpan di volume Docker, jadi data tetap aman saat container restart.
+
  Consider giving a star pls :D

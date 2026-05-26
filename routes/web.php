@@ -23,6 +23,7 @@ use App\Http\Middleware\CheckTeacherRole;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/register', fn () => abort(404));
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
